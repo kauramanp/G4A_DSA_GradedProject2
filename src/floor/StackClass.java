@@ -11,21 +11,20 @@ public class StackClass {
 		if (stack.isEmpty() == false) {
 			int i = 0;
 			while(stack.isEmpty() == false) {
-				System.out.println("Day : " + (i + 1));
+				System.out.println("Day : " + (i + 1) +" tempList "+tempList.size());
 			
 				if(stack.firstElement()  == floors && isBottomSet == false) {
 					isBottomSet = true;
 					tempList.push(stack.firstElement());
 					stack.remove(stack.firstElement());
 					if (tempList.isEmpty() == false) {
-						printFloors(tempList, floors);
-						tempList.clear();
+						printFloors( floors);
 					}
 				}else  {
+				//	System.out.println("stack.firstElement() "+stack.firstElement());
 					tempList.push(stack.firstElement());
 						if(stack.firstElement() == (lastCreatedFloor-1)) {
-							printFloors(tempList, floors);
-							tempList.clear();
+							printFloors( floors);
 						}
 					stack.remove(stack.firstElement());
 				}
@@ -34,9 +33,16 @@ public class StackClass {
 		}
 	}
 	
-	public void printFloors(Stack<Integer> tempList, int floors) {
+	public void printFloors( int floors) {
+		System.out.println(" temp list "+tempList.size());
+		Stack<Integer> tempList1 = new Stack<Integer>();
+		tempList1 = tempList;
 		Stack<Integer> sorted = sortstack(tempList);
+		tempList = tempList1;
+		System.out.println("after sorting temp list "+tempList.size());
+
 		while(sorted.isEmpty() == false) {
+			//System.out.println(" sorted.lastElement() "+sorted.lastElement() +" lastCreatedFloor " + lastCreatedFloor + " temp list "+tempList.size());
 			 if((lastCreatedFloor != -1 && lastCreatedFloor ==  (sorted.lastElement() + 1)) || sorted.lastElement() == floors)
 			{
 				System.out.println(sorted.lastElement());
@@ -46,8 +52,9 @@ public class StackClass {
 					tempList.remove(lastCreatedFloor);
 			}else if(lastCreatedFloor !=  (sorted.lastElement() + 1)) {
 				break;
+			}else {
+				System.out.println(sorted.lastElement());
 			}
-
 		}
 	}
 
